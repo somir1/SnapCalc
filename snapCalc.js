@@ -1,5 +1,4 @@
 const prompt = require("prompt-sync")({ sigint: true });
-var process = require('process');
 
 const snapraiseCalc = (input) => {
     //stores the numbers
@@ -19,12 +18,13 @@ const snapraiseCalc = (input) => {
             operatorStack.push(currItem);
         }
     }
-
+    
     //created a new variable and set it to 0 
     //set total to be the last number of the numberstack
     var total = 0;
     total += numberStack[numberStack.length - 1];
 
+    //loops in revearse through the second to last number in the numberstack
     for (var i = numberStack.length - 2; i >= 0; i--) {
         //tracking the current index from the number stack from right to left.
         var currNum = numberStack[i];
@@ -32,6 +32,7 @@ const snapraiseCalc = (input) => {
         //grabbing current operator where the index i is reversed 
         //its tracking the operator from left to right 
         var currOperator = operatorStack[operatorStack.length - 1 - i];
+        //+ + + *
 
         //checks if the value of the each index and if its equal to the desired operator
         // it will perform the desired expression
@@ -45,7 +46,7 @@ const snapraiseCalc = (input) => {
             total = currNum / total;
         }
     }
-    //round our answer 
+    //round our answer
     var results = Math.round(1000 * total) / 1000;
     return results;
 }
@@ -57,7 +58,7 @@ console.log("Please enter your equation in this format: 1 2 3 + *");
 console.log("Press q to exit out if needed to be");
 while(true) {
     const numbersInput = prompt("> ");
-    //checks if numbers input is eqaul to anything and it will perform the desired actions
+    //checks if inputs is eqaul to anything and it will perform the desired actions
     if (numbersInput === 'q' || numbersInput === 'Q') {
         console.log("You have exited calculator")
         break;
