@@ -18,6 +18,7 @@ const snapraiseCalc = (input) => {
         
         //if current index is a number it will get parsed from string to int and stored in numberArr
         if (!isNaN(parseInt(currItem))) {
+            
             //if the user enters operators first and number later it will throw an error
             // + + 5 6 7 8
             if (operatorArr.length >= 1) {
@@ -27,6 +28,7 @@ const snapraiseCalc = (input) => {
             }else{
                 numberArr.push(parseInt(currItem));
             }
+
         //if current index is NaN it will check for the 4 required operators and will be stored the operatorArr
         } else if (currItem === '+' || currItem === '-' || currItem === '*' || currItem === '/'){
             //checks if user input operator first before a number
