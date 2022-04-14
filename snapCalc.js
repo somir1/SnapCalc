@@ -95,12 +95,14 @@ const snapraiseCalc = (input) => {
 
 //a new variable to track the results if we want to continue adding to the total 
 var globalSum = 0;
-console.log("Welcome to the RPM Calculator")
+console.log("Welcome to the RPN Calculator")
 console.log("Please enter your equation in this format: 1 2 3 + *");
 console.log("Press q to exit out if needed to be");
 console.log("Type clear to empty calculator history");
 while(true) {
     const numbersInput = prompt("> ");
+    console.log(numbersInput)
+    
     //checks if inputs is eqaul to anything and it will perform the desired actions
     if (numbersInput === 'q' || numbersInput === 'Q') {
         console.log("You have exited calculator")
