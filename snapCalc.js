@@ -1,41 +1,83 @@
 const prompt = require("prompt-sync")({ sigint: true });
 
 const snapraiseCalc = (input) => {
+    //checks if input is an array
+    if(!Array.isArray(input)){
+        console.log("Please enter valid format")
+        return null
+    }
     //stores the numbers
-    var numberStack = [];
+    var numberArr = [];
     //stores the operators
-    var operatorStack = [];
+    var operatorArr = [];
     
     //goes through the array and checks the type of each item in the array
     for (var i = 0; i < input.length; i++) {
         //store the current index into a variable
         var currItem = input[i];
-        //if current index is a number it will get parsed from string to int and stored in numberStack
+        
+        //if current index is a number it will get parsed from string to int and stored in numberArr
         if (!isNaN(parseInt(currItem))) {
-            numberStack.push(parseInt(currItem));
-        //if current index is NaN it will check for the 4 desired operators and will be stored the operatorStack
+            //if the user enters operators first and number later it will throw an error
+            // + + 5 6 7 8
+            if (operatorArr.length >= 1) {
+                console.log('You should have number before operators');
+                return null;
+            //if its in the right format it will push into the number stack
+            }else{
+                numberArr.push(parseInt(currItem));
+            }
+        //if current index is NaN it will check for the 4 required operators and will be stored the operatorArr
         } else if (currItem === '+' || currItem === '-' || currItem === '*' || currItem === '/'){
-            operatorStack.push(currItem);
+            //checks if user input operator first before a number
+            if (numberArr.length === 0) {
+                console.log('You must enter number first than operator');
+                return null;
+            }else{
+            //if its in the right format it will push into the operator stack
+            operatorArr.push(currItem);
+            }
+        } else {
+            // if any other invalid inputs then it will make it null
+            //triggering block 114
+            return null;
         }
     }
-    
-    //created a new variable and set it to 0 
-    //set total to be the last number of the numberstack
+    // abcde
+    // checks if the number stack has any right values
+    if(numberArr.length === 0){
+        return null
+    }
+    //if the number of operators are greater then amount of numbers it will perform the right calculations 
+    if (operatorArr.length >= numberArr.length) {
+        console.log("You have entered too many operators");
+        console.log("The correct calculation is below");
+        operatorArr = operatorArr.slice(0, numberArr.length - 1);
+    }
+    //made a new variable and set it to 0 
+    //set total to be the last number of the numberArr
     var total = 0;
-    total += numberStack[numberStack.length - 1];
+    total += numberArr[numberArr.length - 1];
 
-    //loops in revearse through the second to last number in the numberstack
-    for (var i = numberStack.length - 2; i >= 0; i--) {
+    //loops in revearse through the second to last number in the numberArr
+    for (var i = numberArr.length - 2; i >= 0; i--) {
         //tracking the current index from the number stack from right to left.
-        var currNum = numberStack[i];
+        var currNum = numberArr[i];
 
-        //grabbing current operator where the index i is reversed 
-        //its tracking the operator from left to right 
-        var currOperator = operatorStack[operatorStack.length - 1 - i];
-        //+ + + *
+        var currOperator = operatorArr[operatorArr.length - 1 - i];
+        //its tracking the operator from left to right while the numbers itterate in reverse
+            //5 5 5 8 + + -
+            //5 5 5 8
+            //+ + -
+            //5 - 18
+
+            //operatorArr.length - 1 - i
+            //3 - 1 - 2
+            //3 - 1 - 1
+            //3 - 1 - 0
 
         //checks if the value of the each index and if its equal to the desired operator
-        // it will perform the desired expression
+        // it will perform the proper calculation
         if (currOperator === '+') {
             total += currNum;
         } else if (currOperator === '-') {
@@ -56,6 +98,7 @@ var globalSum = 0;
 console.log("Welcome to the RPM Calculator")
 console.log("Please enter your equation in this format: 1 2 3 + *");
 console.log("Press q to exit out if needed to be");
+console.log("Type clear to empty calculator history");
 while(true) {
     const numbersInput = prompt("> ");
     //checks if inputs is eqaul to anything and it will perform the desired actions
@@ -73,14 +116,51 @@ while(true) {
         //new function to store the split inputs in the variable results and run the function
         const result = snapraiseCalc(numbersInput.split(" "))
         //if the inputs is NaN it will throw an error 
-        if (isNaN (result)){
-            console.log("Invalid input try again or enter q to the exit calculator")
+        if (result === null){
+            console.log("Invalid try again or enter q to the exit calculator")
           // if the inputs are valid it will run the function
         } else{
             globalSum += result;
             console.log("Your answer is: " + globalSum);
             console.log("Press Q to exit or continue adding numbers in the same format to increase the total");
-            console.log("You may clear out the results to try a new calculation by simply typing in clear");
+            console.log("You may clear out the history to try a new calculation by simply typing in clear");
         }
     }
 }
+
+//TEST CASES
+// console.log("-----Test1----");
+// var test1result = snapraiseCalc([5, 5, 5, 8, '+', '+', '-']);
+// console.log(test1result === -13 ? 'PASS' : 'FAIL');
+
+// console.log("-------------------------");
+
+// console.log("---Test2---");
+// var test2result = snapraiseCalc(['+', '+', 5, 6, 7 , 8]);
+// console.log(test2result === null ? 'PASS' : 'FAIL');
+
+// console.log("-------------------------");
+
+// console.log("---Test3---");
+// var test3result = snapraiseCalc([5, 9, 1, "-", "/"]);
+// console.log(test3result === 0.625 ? 'PASS' : 'FAIL');
+
+// console.log("-------------------------");
+
+// console.log("---Test4---");
+// var test4result = snapraiseCalc([5, 6, 7, 8, "+", "/", "*", "*", "/"]);
+// console.log(test4result === 2 ? 'PASS' : 'FAIL');
+
+// console.log("-------------------------");
+
+// console.log("---Test5---");
+// var test5result = snapraiseCalc("ascsdvsdcda");
+// console.log(test5result === null ? 'PASS' : 'FAIL');
+
+// console.log("-------------------------");
+
+// console.log("---Test6---");
+// var test6result = snapraiseCalc([-5, 9,"+"]);
+// console.log(test6result === 4 ? 'PASS' : 'FAIL');
+
+// console.log("-------------------------");
