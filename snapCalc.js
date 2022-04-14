@@ -7,14 +7,14 @@ const snapraiseCalc = (input) => {
         return null
     }
     //stores the numbers
-    var numberArr = [];
+    let numberArr = [];
     //stores the operators
-    var operatorArr = [];
-    
+    let operatorArr = [];
+
     //goes through the array and checks the type of each item in the array
-    for (var i = 0; i < input.length; i++) {
+    for (let i = 0; i < input.length; i++) {
         //store the current index into a variable
-        var currItem = input[i];
+        let currItem = input[i];
         
         //if current index is a number it will get parsed from string to int and stored in numberArr
         if (!isNaN(parseInt(currItem))) {
@@ -58,15 +58,15 @@ const snapraiseCalc = (input) => {
     }
     //made a new variable and set it to 0 
     //set total to be the last number of the numberArr
-    var total = 0;
+    let total = 0;
     total += numberArr[numberArr.length - 1];
 
     //loops in revearse through the second to last number in the numberArr
-    for (var i = numberArr.length - 2; i >= 0; i--) {
+    for (let i = numberArr.length - 2; i >= 0; i--) {
         //tracking the current index from the number stack from right to left.
-        var currNum = numberArr[i];
+        let currNum = numberArr[i];
 
-        var currOperator = operatorArr[operatorArr.length - 1 - i];
+        let currOperator = operatorArr[operatorArr.length - 1 - i];
         //its tracking the operator from left to right while the numbers itterate in reverse
             //5 5 5 8 + + -
             //5 5 5 8
@@ -91,12 +91,12 @@ const snapraiseCalc = (input) => {
         }
     }
     //round our answer
-    var results = Math.round(1000 * total) / 1000;
+    let results = Math.round(1000 * total) / 1000;
     return results;
 }
 
 //a new variable to track the results if we want to continue adding to the total 
-var globalSum = 0;
+let globalSum = 0;
 console.log("Welcome to the RPN Calculator")
 console.log("Please enter your equation in this format: 1 2 3 + *");
 console.log("Press q to exit out if needed to be");
@@ -133,37 +133,37 @@ while(true) {
 
 //TEST CASES
 // console.log("-----Test1----");
-// var test1result = snapraiseCalc([5, 5, 5, 8, '+', '+', '-']);
+// let test1result = snapraiseCalc([5, 5, 5, 8, '+', '+', '-']);
 // console.log(test1result === -13 ? 'PASS' : 'FAIL');
 
 // console.log("-------------------------");
 
 // console.log("---Test2---");
-// var test2result = snapraiseCalc(['+', '+', 5, 6, 7 , 8]);
+// let test2result = snapraiseCalc(['+', '+', 5, 6, 7 , 8]);
 // console.log(test2result === null ? 'PASS' : 'FAIL');
 
 // console.log("-------------------------");
 
 // console.log("---Test3---");
-// var test3result = snapraiseCalc([5, 9, 1, "-", "/"]);
+// let test3result = snapraiseCalc([5, 9, 1, "-", "/"]);
 // console.log(test3result === 0.625 ? 'PASS' : 'FAIL');
 
 // console.log("-------------------------");
 
 // console.log("---Test4---");
-// var test4result = snapraiseCalc([5, 6, 7, 8, "+", "/", "*", "*", "/"]);
+// let test4result = snapraiseCalc([5, 6, 7, 8, "+", "/", "*", "*", "/"]);
 // console.log(test4result === 2 ? 'PASS' : 'FAIL');
 
 // console.log("-------------------------");
 
 // console.log("---Test5---");
-// var test5result = snapraiseCalc("ascsdvsdcda");
+// let test5result = snapraiseCalc("ascsdvsdcda");
 // console.log(test5result === null ? 'PASS' : 'FAIL');
 
 // console.log("-------------------------");
 
 // console.log("---Test6---");
-// var test6result = snapraiseCalc([-5, 9,"+"]);
+// let test6result = snapraiseCalc([-5, 9,"+"]);
 // console.log(test6result === 4 ? 'PASS' : 'FAIL');
 
 // console.log("-------------------------");
