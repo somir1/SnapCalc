@@ -101,7 +101,6 @@ console.log("Press q to exit out if needed to be");
 console.log("Type clear to empty calculator history");
 while(true) {
     const numbersInput = prompt("> ");
-    console.log(numbersInput)
     
     //checks if inputs is eqaul to anything and it will perform the desired actions
     if (numbersInput === 'q' || numbersInput === 'Q') {
