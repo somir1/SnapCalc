@@ -4,7 +4,7 @@ const prompt = require("prompt-sync")({ sigint: true });
 let numberStack = [];
 let operatorArr = [];
 
-const snapraiseCalcForSingleInput = () => {
+const mathCalculations = () => {
 
     // 5 5 5 8 + + -
     // [5, 5, 5, 8] ['-', '+','+']
@@ -153,7 +153,7 @@ while(true) {
         if (refineInputRes) {
             //once a operator in its array it will run the functions
             if (operatorArr.length > 0) {
-                const result = snapraiseCalcForSingleInput();
+                const result = mathCalculations();
                 console.log("Your answer is: " + result);
             } else {
                 //if no operators is found it will print out the user input
